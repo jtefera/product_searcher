@@ -1,0 +1,44 @@
+{
+  "name": "product_searcher",
+  "version": "1.0.0",
+  "description": "Product Searcher\r ================\r A web app that will help search a product in multiple stores",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --progress",
+    "build:watch": "webpack --progress --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jtefera/product_searcher.git"
+  },
+  "author": "Jonathan Endale (jtefera)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jtefera/product_searcher/issues"
+  },
+  "homepage": "https://github.com/jtefera/product_searcher#readme",
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-plugin-transform-object-rest-spread": "^6.20.2",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-jest": "^18.0.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-2": "^6.18.0",
+    "copy-webpack-plugin": "^4.0.1",
+    "eslint-config-google": "^0.7.1",
+    "eslint-plugin-react": "^6.8.0",
+    "webpack": "^1.14.0"
+  },
+  "dependencies": {
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-intl": "^2.2.2",
+    "react-redux": "^5.0.1",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.1.0"
+  }
+}
