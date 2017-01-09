@@ -1,12 +1,20 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom';
+import Quagga from 'quagga';
+import App from './container/App.jsx';
+import {Provider} from 'react-redux';
+import {createStore, applyMiddleware} from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import reducer from './reducer/reducer';
 
-const App = (props) => (
-    <div>Hello World</div>
+const store = createStore(
+    reducer, 
+    applyMiddleware(thunkMiddleware)
 );
 
-
-ReactDOM.render(
-    <App />,
+ReactDOM.render( 
+    <Provider store={store}>
+        <App />
+    </Provider>,
     document.getElementById("app")
 );
