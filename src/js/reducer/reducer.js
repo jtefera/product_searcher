@@ -4,6 +4,7 @@ const quaggaState = (state = {}, action) => {
         case 'INIT_QUAGGA':
             return {
                 ...state,
+                isInitialized: true,
                 quaggaRef: action.quaggaRef
             };
         case 'MARK_QUAGGA_AS_STREAMING':

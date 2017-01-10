@@ -6,6 +6,8 @@ import {mount} from 'enzyme';
 import App from '../src/js/container/App.jsx';
 import React from 'react';
 import {Provider} from 'react-redux';
+import nock from 'nock';
+import fetch from 'isomorphic-fetch';
 
 const middlewares = [ thunk ];
 const mockStore = configureMockStore(middlewares);
@@ -37,8 +39,10 @@ describe('Actions: ', () => {
         const middlewares = [thunk];
         const startMock = jest.fn();
         const store = mockStore({
-            quaggaRef: {
-                start: startMock
+            quaggaState: {
+                quaggaRef: {
+                    start: startMock
+                }
             }
         }, middlewares);
         const expectedActions = [
@@ -73,6 +77,7 @@ describe('Actions: ', () => {
         expect(stopMock).toBeCalled();
     });
 
+    // init
     it('init should exist and return a function', () => {
         expect(actions.init).not.toBeUndefined();
         expect(actions.init).toBeInstanceOf(Function);
@@ -83,4 +88,33 @@ describe('Actions: ', () => {
         ];
     });
 
+    // Send barcode
+    it('sendBarcode should exist and send a fetch request to the api if' 
+    + 'input is number, discart otherwise', () => {
+        const expectedResponse = {
+            name: 'Norcom College Ruled Notebook 70 Sheet Case Pack 24',
+            manufacturer: 'DDI'
+        };
+        const expectedActions = [
+            {
+                type: 'ADD_PRODUCT',
+                product: expectedResponse,
+            }
+        ]
+        const apiNock = nock('http://localhost:3000')
+                            .log(console.log)
+                            .get(/get_product\/\d+/)
+                            .reply(200, expectedResponse);
+        const exampleBarcode = '0026229770760';
+        const store = mockStore({});
+        expect(actions.sendBarcode).not.toBeUndefined();
+        store.dispatch(actions.sendBarcode(2123))
+            .then(prod => {
+                expect(prod).toEqual(expectedResponse);
+                expect(store.getActions()).toEqual(
+                    expectedActions
+                );
+            });
+        //console.log(actions.sendBarcode(exampleBarcode));        
+    });
 });

@@ -1,5 +1,6 @@
 import {dispatch} from 'react-redux';
 import Quagga from 'quagga';
+import fetch from 'isomorphic-fetch';
 
 export const initQuagga = (Quagga) => ({
     type: 'INIT_QUAGGA',
@@ -37,6 +38,7 @@ export const stopStream = () => (dispatch, getState) => {
 };
 
 export const init = () => (dispatch) => {
+    window.fetch2 = fetch;
     Quagga.init({
         inputStream: {
             name: "Live",
@@ -79,9 +81,7 @@ export const init = () => (dispatch) => {
     Quagga.onDetected(function (data) {
         const barcode = data.codeResult.code;
         console.log(barcode);
-        /*fetch('/get_product/' + data.codeResult.code)
-            .then((res) => res.json())
-            .then(console.log);*/
+        dispatch(sendBarcode(barcode));
     });
     
     Quagga.onProcessed(function (result) {
@@ -126,3 +126,23 @@ export const init = () => (dispatch) => {
         }
     });
 };
+// add product
+
+const addProduct = (product) => ({
+    type: 'ADD_PRODUCT',
+    product,
+})
+
+// sendBarcode
+export const sendBarcode = (barcode) => (dispatch) => {
+    let url = '/get_product/' + barcode;
+    if(process.env.NODE_ENV === 'test') {
+        url = 'http://localhost:3000' + url;
+    }
+    return fetch(url).then(res => res.json())
+            .then(jsonRes => {
+                dispatch(addProduct(jsonRes))
+                console.log(jsonRes);
+                return jsonRes;
+            });
+}
