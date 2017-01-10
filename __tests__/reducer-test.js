@@ -27,6 +27,7 @@ describe('Reducer tests: ', () => {
         const testReducer = reducer(undefined, actions.initQuagga(quaggaMock));
         expect(testReducer.quaggaState).toEqual({
             quaggaRef: quaggaMock,
+            isInitialized: true,
         });
     });
 
