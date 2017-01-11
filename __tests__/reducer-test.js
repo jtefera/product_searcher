@@ -96,4 +96,29 @@ describe('Reducer tests: ', () => {
         expect(quaggaMock3.start).not.toBeCalled();
         expect(store3.getState().quaggaState).toEqual(expected3);
     });
+    it('status should have isScanning method that start as false and becomes true later', () => {
+        const expectedStatusBeg = {
+            isScanning: false,
+        };
+        const statusBeg = reducer(undefined, {type: 'test'}).status;
+        expect(statusBeg).toEqual(expectedStatusBeg);
+        const expectedStatusAfterAction = {
+            isScanning: true,
+        };
+        const statusAfterAction = reducer(undefined, actions.launchScanner()).status;
+        expect(statusAfterAction).toEqual(expectedStatusAfterAction);
+
+        const statusAfterStop = reducer(
+                reducer(
+                    undefined, actions.launchScanner()
+                ),
+                actions.stopScanner()
+            ).status;
+
+        const expectedAfterStop = {
+            isScanning: false,
+        };
+
+        expect(statusAfterStop).toEqual(expectedAfterStop);
+    });
 });

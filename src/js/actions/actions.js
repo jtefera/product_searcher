@@ -23,6 +23,7 @@ export const startStream = () => (dispatch, getState) => {
         throw new Error('Quagga not initialazed', quaggaRef);
     }
     if(!isAlreadyStreaming) {
+        console.log(quaggaRef)
         quaggaRef.start();
         dispatch(markQuaggaAsStreaming());
     }
@@ -146,3 +147,11 @@ export const sendBarcode = (barcode) => (dispatch) => {
                 return jsonRes;
             });
 }
+
+export const launchScanner = () => ({
+    type: 'LAUNCH_SCANNER',
+});
+
+export const stopScanner = () => ({
+    type: 'STOP_SCANNER',
+});

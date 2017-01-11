@@ -87,6 +87,21 @@ describe('Actions: ', () => {
             actions.startStream()
         ];
     });
+        // launchScanner
+    it('launchScanner should exist and return a LAUNCH_SCANNER action', () => {
+        const expected = {
+            type: 'LAUNCH_SCANNER',
+        };
+        expect(actions.launchScanner()).toEqual(expected);
+    }); 
+
+    // stopScanner
+    it('stopScanner should exist and return a STOP_SCANNER action', () => {
+        const expected = {
+            type: 'STOP_SCANNER',
+        };
+        expect(actions.stopScanner()).toEqual(expected);
+    }); 
 
     // Send barcode
     it('sendBarcode should exist and send a fetch request to the api if' 
@@ -102,7 +117,6 @@ describe('Actions: ', () => {
             }
         ]
         const apiNock = nock('http://localhost:3000')
-                            .log(console.log)
                             .get(/get_product\/\d+/)
                             .reply(200, expectedResponse);
         const exampleBarcode = '0026229770760';
@@ -114,7 +128,6 @@ describe('Actions: ', () => {
                 expect(store.getActions()).toEqual(
                     expectedActions
                 );
-            });
-        //console.log(actions.sendBarcode(exampleBarcode));        
+            });       
     });
 });

@@ -24,7 +24,7 @@ module.exports = [{
         new CopyWebpackPlugin([
             { from: 'src/index.html', to: 'public/' },
             { from: 'src/assets/**/*', to: 'public/' },
-            { from: 'src/css/**/*', to: 'public/style/' }
+            { from: 'src/css/**/*', to: 'public/style/', flatten: true }
         ]),
     ],
 },
