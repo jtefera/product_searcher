@@ -1,4 +1,3 @@
 node_modules
 public
-src/server/keys.js
-server
+server/keys.js

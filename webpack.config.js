@@ -27,30 +27,4 @@ module.exports = [{
             { from: 'src/css/**/*', to: 'public/style/', flatten: true }
         ]),
     ],
-},
-{
-    entry: {
-        './server/server': './src/server/server.js',
-    },
-    output: {
-        path: __dirname,
-        filename: '[name].js',
-    },
-    target: 'node',
-    module: {
-        loaders: [
-            {
-                test: /.js$/,
-                loader: 'babel-loader',
-                exclude: /node_modules/,
-                query: {
-                    presets: ['es2015', 'stage-2'],
-                },
-            },
-            {
-                test: /\.json$/,
-                loader: 'json-loader',
-            },
-        ],
-    },
 }];
