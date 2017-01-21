@@ -11,11 +11,9 @@ polyfill();
 // Server
 let app = express();
 
-// logger
-
 app.use(morgan('combined'));
 // Static pages
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, '../public')));
 
 // Parses json files so they can be usable 
 app.use(bodyParser.json());
@@ -26,5 +24,7 @@ app.get('/get_product/:barcode', (req,  res) => {
         .then((apiRes) => apiRes.json())
         .then(res.json.bind(res))
 });
+
+
 
 exports = module.exports = app;
